@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ANTHELEM CONFORT PITCH BLOSSOM</title>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
 <style>
 * {
     margin: 0;
@@ -13,39 +17,98 @@
 }
 
 body {
-    font-family: Georgia, serif;
+    font-family: Arial, sans-serif;
     min-height: 100vh;
+    background: linear-gradient(135deg, #ffe0ec, #fff4d6, #e7d5ff);
+    color: #54334b;
     overflow-x: hidden;
-    color: #ffffff;
-    background:
-    linear-gradient(rgba(12,55,25,.35),rgba(12,55,25,.55)),
-    linear-gradient(135deg,#173d20,#507b35,#a4bd70);
 }
 
-.garden {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
+header {
+    text-align: center;
+    padding: 35px 15px;
+}
+
+header h1 {
+    font-size: 27px;
+    color: #b83272;
+}
+
+header p {
+    margin-top: 12px;
+}
+
+.container {
+    width: 90%;
+    max-width: 430px;
+    margin: 20px auto;
+    padding: 25px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 22px;
+    box-shadow: 0 8px 25px rgba(120,50,90,0.15);
+    text-align: center;
+}
+
+h2 {
+    color: #b83272;
+    margin-bottom: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 9px 0;
+    border: 1px solid #e6b8d0;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #c04480;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #a52e68;
+}
+
+.secondary {
+    background: #8055a8;
+}
+
+.link {
+    display: block;
+    margin-top: 17px;
+    color: #a52e68;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    margin-top: 14px;
+    font-size: 14px;
+    overflow-wrap: anywhere;
 }
 
 .flower {
-    position: absolute;
-    font-size: 35px;
-    animation: float 9s infinite ease-in-out;
-    opacity: .85;
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-35px) rotate(15deg); }
-}
-
-.petal {
-    position: absolute;
-    top: -40px;
-    font-size: 20px;
+    position: fixed;
+    top: -30px;
+    font-size: 22px;
     animation: fall linear infinite;
+    pointer-events: none;
+    z-index: -1;
 }
 
 @keyframes fall {
@@ -54,152 +117,90 @@ body {
     }
 }
 
-.container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-    position: relative;
-    z-index: 2;
-}
-
-.welcome {
-    width: 100%;
-    max-width: 500px;
+footer {
     text-align: center;
-    padding: 40px 25px;
-    border: 1px solid rgba(255,255,255,.5);
-    border-radius: 30px;
-    background: rgba(255,255,255,.13);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 15px 50px rgba(0,0,0,.2);
-}
-
-.logo {
-    font-size: 55px;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 29px;
-    line-height: 1.4;
-    letter-spacing: 2px;
-    color: #fff;
-}
-
-.subtitle {
-    margin-top: 18px;
-    font-size: 17px;
-    line-height: 1.8;
-    color: #f4ffe9;
-}
-
-.divider {
-    margin: 25px auto;
-    width: 100px;
-    height: 2px;
-    background: #f6df75;
-}
-
-.enter {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 16px 32px;
-    border-radius: 40px;
-    border: none;
-    background: #f4df78;
-    color: #254a24;
-    font-size: 15px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.enter:active {
-    transform: scale(.95);
-}
-
-.footer {
-    margin-top: 30px;
+    padding: 25px;
     font-size: 13px;
-    color: #e8f3dc;
-}
-
-@media(max-width:400px) {
-    h1 { font-size: 23px; }
-    .welcome { padding: 35px 18px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="garden" id="garden"></div>
+<header>
+    <h1>🌸 ANTHELEM CONFORT PITCH BLOSSOM 🌸</h1>
+    <p>A little world created with love and beautiful memories.</p>
+</header>
 
-<div class="container">
-    <div class="welcome">
+<!-- HOME PAGE -->
+<section class="container" id="homePage">
+    <h2>Welcome to Our Flower World 🌻</h2>
+    <p>A special place for two people to share beautiful moments.</p>
+    <button onclick="showPage('authPage')">🌻 ENTER OUR WORLD</button>
+</section>
 
-        <div class="logo">🌼</div>
+<!-- LOGIN AND REGISTER CHOICE -->
+<section class="container hidden" id="authPage">
+    <h2>Welcome Back 🌷</h2>
+    <p>Choose how you want to enter.</p>
 
-        <h1>
-        ANTHELEM CONFORT<br>
-        PITCH BLOSSOM
-        </h1>
+    <button onclick="showPage('loginPage')">Login</button>
+    <button class="secondary" onclick="showPage('registerPage')">Create Account</button>
 
-        <div class="divider"></div>
+    <span class="link" onclick="showPage('homePage')">Back Home</span>
+</section>
 
-        <p class="subtitle">
-        Somewhere in this endless world of flowers,
-        two people found a beautiful place to talk.
-        </p>
+<!-- REGISTRATION -->
+<section class="container hidden" id="registerPage">
+    <h2>Create Your Account 🌸</h2>
 
-        <button class="enter" onclick="enterWorld()">
-        🌻 ENTER OUR WORLD
-        </button>
+    <input type="text" id="registerName" placeholder="Your name">
+    <input type="email" id="registerEmail" placeholder="Email address">
+    <input type="password" id="registerPassword" placeholder="Create password">
 
-        <div class="footer">
-        A little world of flowers, conversations and memories.
-        </div>
+    <button onclick="registerUser()">Create Account</button>
 
-    </div>
-</div>
+    <p class="message" id="registerMessage"></p>
 
+    <span class="link" onclick="showPage('loginPage')">Already have an account? Login</span>
+    <span class="link" onclick="showPage('authPage')">Back</span>
+</section>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<!-- LOGIN -->
+<section class="container hidden" id="loginPage">
+    <h2>Login 🌺</h2>
+
+    <input type="email" id="loginEmail" placeholder="Email address">
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button onclick="loginUser()">Login</button>
+
+    <button class="secondary" onclick="resetPassword()">Forgot Password?</button>
+
+    <p class="message" id="loginMessage"></p>
+
+    <span class="link" onclick="showPage('registerPage')">Create an account</span>
+    <span class="link" onclick="showPage('authPage')">Back</span>
+</section>
+
+<!-- PRIVATE DASHBOARD -->
+<section class="container hidden" id="dashboardPage">
+    <h2>Welcome to Your Private World 🌹</h2>
+
+    <p id="welcomeName"></p>
+    <p style="margin-top:15px;">
+        Your account is successfully connected.
+    </p>
+
+    <button onclick="logoutUser()">Logout</button>
+</section>
+
+<footer>
+    Made with love 🌸 ANTHELEM CONFORT PITCH BLOSSOM
+</footer>
 
 <script>
-const garden = document.getElementById("garden");
-
-const flowers = ["🌼","🌻","🌸","🌿","💮"];
-
-for(let i=0;i<35;i++){
-    const flower = document.createElement("div");
-    flower.className = "flower";
-    flower.textContent = flowers[Math.floor(Math.random()*flowers.length)];
-    flower.style.left = Math.random()*100+"%";
-    flower.style.top = Math.random()*100+"%";
-    flower.style.animationDelay = Math.random()*8+"s";
-    garden.appendChild(flower);
-}
-
-for(let i=0;i<20;i++){
-    const petal = document.createElement("div");
-    petal.className = "petal";
-    petal.textContent = "🌼";
-    petal.style.left = Math.random()*100+"%";
-    petal.style.animationDuration = (6+Math.random()*10)+"s";
-    petal.style.animationDelay = Math.random()*10+"s";
-    garden.appendChild(petal);
-}
-
-function enterWorld(){
-    alert("Welcome to our little flower world! 🌼");
-}
-
+// FIREBASE CONFIGURATION
 const firebaseConfig = {
     apiKey: "AIzaSyAfUdswmVWWffxejmACuHD1_6o9GZBtTcs",
     authDomain: "anthelem-blossom.firebaseapp.com",
@@ -210,12 +211,138 @@ const firebaseConfig = {
     measurementId: "G-LRNLMJNGZM"
 };
 
+// CONNECT FIREBASE
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-console.log("ANTHELEM BLOSSOM Firebase connected!");
+// PAGE NAVIGATION
+function showPage(pageId) {
+    document.querySelectorAll(".container").forEach(page => {
+        page.classList.add("hidden");
+    });
+
+    document.getElementById(pageId).classList.remove("hidden");
+}
+
+// CREATE ACCOUNT
+async function registerUser() {
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value;
+    const message = document.getElementById("registerMessage");
+
+    if (!name || !email || !password) {
+        message.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    if (password.length < 6) {
+        message.textContent = "Password must be at least 6 characters.";
+        return;
+    }
+
+    message.textContent = "Creating your account...";
+
+    try {
+        const result = await auth.createUserWithEmailAndPassword(email, password);
+
+        await db.collection("users").doc(result.user.uid).set({
+            name: name,
+            email: email,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        message.textContent = "Account created successfully!";
+
+    } catch (error) {
+        message.textContent = error.message;
+    }
+}
+
+// LOGIN
+async function loginUser() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const message = document.getElementById("loginMessage");
+
+    if (!email || !password) {
+        message.textContent = "Enter your email and password.";
+        return;
+    }
+
+    message.textContent = "Logging in...";
+
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+        message.textContent = error.message;
+    }
+}
+
+// RESET PASSWORD
+async function resetPassword() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const message = document.getElementById("loginMessage");
+
+    if (!email) {
+        message.textContent = "Enter your email first.";
+        return;
+    }
+
+    try {
+        await auth.sendPasswordResetEmail(email);
+        message.textContent = "Password reset email sent.";
+    } catch (error) {
+        message.textContent = error.message;
+    }
+}
+
+// LOGOUT
+function logoutUser() {
+    auth.signOut();
+}
+
+// CHECK LOGIN STATUS
+auth.onAuthStateChanged(async user => {
+    if (user) {
+        showPage("dashboardPage");
+
+        try {
+            const profile = await db.collection("users").doc(user.uid).get();
+
+            if (profile.exists) {
+                document.getElementById("welcomeName").textContent =
+                    "Hello, " + profile.data().name + " 🌷";
+            } else {
+                document.getElementById("welcomeName").textContent =
+                    "Welcome to your account 🌷";
+            }
+        } catch (error) {
+            document.getElementById("welcomeName").textContent =
+                "Welcome to your account 🌷";
+        }
+    } else {
+        showPage("homePage");
+    }
+});
+
+// FLOATING FLOWERS
+const flowers = ["🌸", "🌺", "🌼", "🌷", "🌻"];
+
+setInterval(() => {
+    const flower = document.createElement("div");
+
+    flower.className = "flower";
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(flower);
+
+    setTimeout(() => flower.remove(), 10000);
+}, 700);
 
 </script>
 
