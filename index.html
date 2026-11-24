@@ -167,6 +167,11 @@ h1 {
 </div>
 
 <script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
 const garden = document.getElementById("garden");
 
 const flowers = ["🌼","🌻","🌸","🌿","💮"];
@@ -192,23 +197,17 @@ for(let i=0;i<20;i++){
 }
 
 function enterWorld(){
-    alert("Welcome to our little flower world! 🌼 Our private chat is coming next.");
+    alert("Welcome to our little flower world! 🌼");
 }
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
-<script>
 const firebaseConfig = {
-    // const firebaseConfig = {
-  apiKey: "AIzaSyAfUdswmVWWffxejmACuHD1_6o9GZBtTcs",
-  authDomain: "anthelem-blossom.firebaseapp.com",
-  projectId: "anthelem-blossom",
-  storageBucket: "anthelem-blossom.firebasestorage.app",
-  messagingSenderId: "687614752920",
-  appId: "1:687614752920:web:8d14a77366980d0bd338ed",
-  measurementId: "G-LRNLMJNGZM"
-};
+    apiKey: "YOUR_EXISTING_API_KEY",
+    authDomain: "anthelem-blossom.firebaseapp.com",
+    projectId: "anthelem-blossom",
+    storageBucket: "anthelem-blossom.firebasestorage.app",
+    messagingSenderId: "687614752920",
+    appId: "1:687614752920:web:8d14a77366980d0bd338ed",
+    measurementId: "G-LRNLMJNGZM"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -216,8 +215,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-console.log("ANTHREEM BLOSSOM Firebase connected!");
+console.log("ANTHELEM BLOSSOM Firebase connected!");
+
 </script>
 
 </body>
-  </html>
+</html>
